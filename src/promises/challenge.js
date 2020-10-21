@@ -1,19 +1,17 @@
-let XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+const fetchData = require('../utils/fetchdata');
 
-let api = 'https://rickandmortyapi.com/api/character/';
+const API = 'https://rickandmortyapi.com/api/character/';
 
-let fetchData = (url, cb) => {
-    let xhttp = new XMLHttpRequest();
-    xhttp.open('GET', url, true);
-    xhttp.onreadystatechange = (event) => {
-        if (xhttp.readyState === 4) { //4 porque es la manera de saber q ya esta en el ultimo estado
-            if (xhttp.status === 200) {
-                cb(null, JSON.parse(xhttp.responseText))// el parse para reseibirlo en la data adecuada
-            } else {
-                const error = new Error('Error' + url)
-                return cb(error, null)
-            }
-        }
-    }
-    xhttp.send();
-}
+fetchData(API)
+    .then(data => {
+        console.log(data.info.count);
+        return fetchData(`${API}${data.results[0].id}`);
+    })
+    .then(data => {
+        console.log(data.name);
+        return fetchData(data.origin.url)
+    })
+    .then(data => {
+        console.log(data.dimension)
+    })
+    .catch(err => console.log(err));
