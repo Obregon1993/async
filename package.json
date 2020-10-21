@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "callback": "nodemon src/callback/index.js",
-    "callback:challenge": "nodemon src/callback/challenge.js"
+    "callback:challenge": "nodemon src/callback/challenge.js",
+    "promise": "node src/promises/index.js"
   },
   "keywords": [],
   "author": "",
